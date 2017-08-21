@@ -6,6 +6,7 @@ body {
     max-width: 570px;
     margin: auto;
     color: #565a5c;
+    font-family: 'Lato', sans-serif;
 }
 div.home_button {
     margin: auto 4px;
@@ -25,12 +26,16 @@ h2 {
     display: inline-block;
     width: calc(100% - 50px);
     margin: 8px 0;
+    font-size: 20px;
 }
 div.description {
     max-height: 152px;
     overflow-y: auto;
     margin-bottom: 4px;
-    font-size: 14px;
+    font-size: 16px;
+}
+div.description p {
+    margin: 8px 0;
 }
 ul {
     list-style-type: none;
@@ -45,6 +50,9 @@ li {
     padding: 12px 0;
     color: #006fbf;
 }
+li.topic.unread {
+    font-weight: 700;
+}
 li:hover {
     background-color: #f2f8fc;
 }
@@ -58,12 +66,13 @@ li a {
 }
 li img {
     display: inline-block;
+    padding: 0px 8px
 }
 li span, li a {
     display: inline-block;
-    width: calc(100% - 31px);
+    width: calc(100% - 44px);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 14px;
+    font-size: 16px;
 }

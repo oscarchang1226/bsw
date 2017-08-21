@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <title>Test</title>
         <link rel="stylesheet" href="./smith-module.css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     </head>
     <body>
         <header>
@@ -79,8 +79,12 @@
 
             function generateTopic(topic) {
                 let iconUrl = predictType(topic);
+                let classNames = 'topic';
+                if(topic.Unread) {
+                    classNames = 'topic unread';
+                }
                 return `
-                    <li onClick="topicClick(this)" class="topic">
+                    <li onClick="topicClick(this)" class="${classNames}">
                         <input type="hidden" name="url" value=${topic.url} />
                         <img src="${iconUrl}" />
                         <span>${topic.Title}</span>
