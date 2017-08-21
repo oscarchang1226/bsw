@@ -9,7 +9,7 @@
     </head>
     <body>
         <main>
-            <h2>Title</h2>
+            <h2>Home</h2>
             <div class="description">
 
             </div>
@@ -28,19 +28,54 @@
                 module.Structure = structureDummy;
                 return module;
             });
-            let moduleParent = toc;
+            let parentModule = toc;
+            let isRoot = true;
+
+            function generateTopicList(topics) {
+                let temp = topics.map(t => generateTopic(t));
+                return temp.join('');
+            }
+
+            function generateTopic(topic) {
+                return '<li><a href="'+topic.Url+'">'+topic.Title+'</a></li>'
+            }
 
             function generateModuleList(modules) {
-                let temp = modules.map((m) => generateModule(m));
+                let temp = modules.map(m => generateModule(m));
                 return temp.join('');
             }
 
             function generateModule(module) {
-                return '<li><input type="hidden" name="moduleId" value='+module.ModuleId+'/><span>'+module.Title+'</span></li>';
+                return '<li onClick="moduleClick(this)"><input type="hidden" name="moduleId" value='+module.ModuleId+' /><span>'+module.Title+'</span></li>';
             }
 
-            let l = generateModuleList(moduleParent.Modules);
+            function setDescription(module) {
+                let temp = '';
+                try {
+                    temp = module.Description.Html;
+                    temp = temp.replace(/\\n/g, '<br />');
+                } catch(e) {
+
+                }
+
+                $('div.description').html(temp);
+            }
+
+            function moduleClick(li) {
+                let moduleId = $(li).find('input[name="moduleId"]').val();
+                parentModule = parentModule.Modules.find((m) => m.ModuleId == moduleId);
+                let tl = generateTopicList(parentModule.Topics);
+                let ml = generateModuleList(parentModule.Modules);
+                $('ul li').remove();
+                $('ul').html(ml + tl);
+                $('h2').html(parentModule.Title);
+                setDescription(parentModule);
+                isRoot = false;
+            }
+
+            let l = generateModuleList(parentModule.Modules);
             $('ul').html(l);
+            $('h2').html(parentModule.Title);
 
         </script>
     </body>
